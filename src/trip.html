@@ -38,69 +38,69 @@
       *   You can even use $(function(){......}) to process document load ready event.
       * */
 
-      $.get( "https://correapp-api.herokuapp.com/drivers", function( data ) {
-        console.log(data[0]);
-        console.log(data.length);
-
-        var tableDin ="";
-
-        for(var i = 0; i < data.length; i++){
-
-          tableDin = tableDin.concat("<tr id='" + data[i].id +"' class='clickable-row' data-href='driver.html?id="+ data[i].id +"'><a href=\"driver.html\"> <td class=\"text-center\"> <div class=\"avatar\"> <img class=\"img-avatar\" src=\"" +data[i].photo_url + "> <span class=\"avatar-status badge-success\"></span> </div> </td>");
-          tableDin = tableDin.concat("<td> <div>"+ data[i].name + " " + data[i].lastname +"</div> </td>");
-          tableDin = tableDin.concat("<td class=\"text-center\"> <div>");
-          const score =data[i].rating / 2;
-          if(score < 2){
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-          }
-          else if(score < 3){
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-          }
-          else if(score < 4){
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-          }
-          else if(score < 5){
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-          }
-          else if(score < 6){
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-          } else{
-            tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-          }
-          tableDin = tableDin.concat("</div> </td>");
-
-          tableDin = tableDin.concat("<td><div> 12 viajes realizados </div> </td>");
-
-          if(data[i].status == "Confirmado"){
-            tableDin = tableDin.concat("<td class=\"text-center\"> <div><span class=\"badge badge-success\">Confirmado</span>\n </div></td>");
-          } else if(data[i].status == "No confirmado"){
-            tableDin = tableDin.concat("<td class=\"text-center\"> <div><span class=\"badge badge-warning\">No Confirmado</span>\n </div></td>");
-          } else {
-            tableDin = tableDin.concat("<td class=\"text-center\"> <div><span class=\"badge badge-danger\">Bloqueado</span>\n </div></td>");
-          }
-
-          console.log(data[i]);
-        }
-        console.log(tableDin);
-        $("#tabla_de_choferes").html(tableDin);
-        alert( "Load was performed." );
-        jQuery(document).ready(function($) {
-          $(".clickable-row").click(function() {
-            window.location = $(this).data("href");
-          });
-        });
-
-      });
+      // $.get( "https://correapp-api.herokuapp.com/drivers", function( data ) {
+      //   console.log(data[0]);
+      //   console.log(data.length);
+      //
+      //   var tableDin ="";
+      //
+      //   for(var i = 0; i < data.length; i++){
+      //
+      //     tableDin = tableDin.concat("<tr id='" + data[i].id +"' class='clickable-row' data-href='trip.html?id="+ data[i].id +"'><a href=\"driver.html\"> <td class=\"text-center\"> <div class=\"avatar\"> <img class=\"img-avatar\" src=\"" +data[i].photo_url + "> <span class=\"avatar-status badge-success\"></span> </div> </td>");
+      //     tableDin = tableDin.concat("<td> <div>"+ data[i].name + " " + data[i].lastname +"</div> </td>");
+      //     tableDin = tableDin.concat("<td class=\"text-center\"> <div>");
+      //     const score =data[i].rating / 2;
+      //     if(score < 2){
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //     }
+      //     else if(score < 3){
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //     }
+      //     else if(score < 4){
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //     }
+      //     else if(score < 5){
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //     }
+      //     else if(score < 6){
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //     } else{
+      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
+      //     }
+      //     tableDin = tableDin.concat("</div> </td>");
+      //
+      //     tableDin = tableDin.concat("<td><div> 12 viajes realizados </div> </td>");
+      //
+      //     if(data[i].status == "Confirmado"){
+      //       tableDin = tableDin.concat("<td class=\"text-center\"> <div><span class=\"badge badge-success\">Confirmado</span>\n </div></td>");
+      //     } else if(data[i].status == "No confirmado"){
+      //       tableDin = tableDin.concat("<td class=\"text-center\"> <div><span class=\"badge badge-warning\">No Confirmado</span>\n </div></td>");
+      //     } else {
+      //       tableDin = tableDin.concat("<td class=\"text-center\"> <div><span class=\"badge badge-danger\">Bloqueado</span>\n </div></td>");
+      //     }
+      //
+      //     console.log(data[i]);
+      //   }
+      //   console.log(tableDin);
+      //   $("#tabla_de_choferes").html(tableDin);
+      //   alert( "Load was performed." );
+      //   jQuery(document).ready(function($) {
+      //     $(".clickable-row").click(function() {
+      //       window.location = $(this).data("href");
+      //     });
+      //   });
+      //
+      // });
     </script>
 
     <script>
@@ -155,7 +155,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="card">
-                  <div class="card-header">Choferes</div>
+                  <div class="card-header">Viaje #{id}</div>
                   <div class="card-body">
                     <br>
                     <table class="table table-responsive-sm table-hover table-outline mb-0">

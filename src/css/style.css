@@ -15208,4 +15208,10 @@ body {
   breakpoint-lg: 992px;
   breakpoint-xl: 1200px;
 }
+
+.checked {
+  color:  #20a8d8;
+}
+
+
 /*# sourceMappingURL=style.css.map */

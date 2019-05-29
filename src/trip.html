@@ -9,6 +9,13 @@
 
 <html lang="en">
   <head>
+    <style>
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+      }
+    </style>
     <base href="./">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -152,29 +159,63 @@
       <main class="main">
         <div class="container-fluid">
           <div class="animated fadeIn">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header">Viaje #{id}</div>
-                  <div class="card-body">
-                    <br>
-                    <table class="table table-responsive-sm table-hover table-outline mb-0">
-                      <thead class="thead-light">
-                        <tr>
-                          <th class="text-center">
-                            <i class="icon-people"></i>
-                          </th>
-                          <th>Chofer</th>
-                          <th class="text-center">Rating</th>
-                          <th>Cantidad de viajes</th>
-                          <th class="text-center">Status</th>
-                        </tr>
-                      </thead>
-                      <tbody id="tabla_de_choferes">
+            <script>
+              function initMap() {
+                if (navigator.geolocation) {
+                  console.log(navigator);
+                  console.log(navigator.geolocation);
 
-                      </tbody>
-                    </table>
-                  </div>
+                  navigator.geolocation.getCurrentPosition(mip);
+                }
+              }
+
+
+              console.log("asdasdadadas");
+              // Initialize and add the map
+              function mip(loc) {
+
+                console.log(loc);
+                console.log("asdasdadadas2");
+                // The location of Uluru
+                var uluru = {lat: -34.5688743, lng: -58.45388799999999};
+                // The map, centered at Uluru
+                var map = new google.maps.Map(
+                  document.getElementById('map'), {zoom: 12, center: uluru});
+                // The marker, positioned at Uluru
+                var marker = new google.maps.Marker({position: uluru, map: map});
+              }
+            </script>
+            <!--Load the API from the specified URL
+            * The async attribute allows the browser to render the page while the API loads
+            * The key parameter will contain your own API key (which is not needed for this tutorial)
+            * The callback parameter executes the initMap() function
+            -->
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY7UZsBUTxxPT0whr4tZgTz4v5PiwdffY&callback=initMap">
+            </script>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">Viaje #{id}</div>
+                <div class="card-body">
+                  <br>
+                  <table class="table table-responsive-sm table-hover table-outline mb-0">
+                    <thead class="thead-light">
+                    <tr>
+                      <th class="text-center">
+                        <i class="icon-people"></i>
+                      </th>
+                      <th>Chofer</th>
+                      <th class="text-center">Rating</th>
+                      <th>Cantidad de viajes</th>
+                      <th class="text-center">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tabla_de_choferes">
+
+                    </tbody>
+                  </table>
                 </div>
               </div>
               <!-- /.col-->
@@ -182,6 +223,12 @@
             <!-- /.row-->
           </div>
         </div>
+
+
+
+
+        <div id="map"></div>
+
       </main>
       <aside class="aside-menu">
         <ul class="nav nav-tabs" role="tablist">

@@ -36,78 +36,101 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript">
 
-      /*  jQuery function is the entrance function that jQuery execute.
-      *
-      *   Below code means when the html document load ready, this is similar to window.onload() = function(){......};
-      *
-      *   You can also use $(document).ready(function(){......}), $ is an alias of jQuery.
-      *
-      *   You can even use $(function(){......}) to process document load ready event.
-      * */
+      function initMap() {
+        var full_url = document.URL; // Get current url
+        var url_array = full_url.split('id=') // Split the string into an array with / as separator
+        const id = url_array[url_array.length-1];  // Get the last part of the array (-1)
+        console.log(id);
+        console.log("asdasdadadas2");
+        // The location of Uluru
+        var uluru = {lat: -34.5688743, lng: -58.45388799999999};
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+          document.getElementById('map'), {zoom: 11, center: uluru});
+        // The marker, positioned at Uluru
+        // var marker = new google.maps.Marker({position: uluru, map: map, icon: "https://github.com/tdp2-2019/app-mobile/blob/master/Correapp/app/src/main/res/drawable/icon_dog_car.png?raw=true"});
 
-      // $.get( "https://correapp-api.herokuapp.com/drivers", function( data ) {
-      //   console.log(data[0]);
-      //   console.log(data.length);
-      //
-      //   var tableDin ="";
-      //
-      //   for(var i = 0; i < data.length; i++){
-      //
-      //     tableDin = tableDin.concat("<tr id='" + data[i].id +"' class='clickable-row' data-href='trip.html?id="+ data[i].id +"'><a href=\"driver.html\"> <td class=\"text-center\"> <div class=\"avatar\"> <img class=\"img-avatar\" src=\"" +data[i].photo_url + "> <span class=\"avatar-status badge-success\"></span> </div> </td>");
-      //     tableDin = tableDin.concat("<td> <div>"+ data[i].name + " " + data[i].lastname +"</div> </td>");
-      //     tableDin = tableDin.concat("<td class=\"text-center\"> <div>");
-      //     const score =data[i].rating / 2;
-      //     if(score < 2){
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //     }
-      //     else if(score < 3){
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //     }
-      //     else if(score < 4){
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //     }
-      //     else if(score < 5){
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //     }
-      //     else if(score < 6){
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //     } else{
-      //       tableDin = tableDin.concat("<span class=\"fa fa-star checked\"></span>");
-      //     }
-      //     tableDin = tableDin.concat("</div> </td>");
-      //
-      //     tableDin = tableDin.concat("<td><div> 12 viajes realizados </div> </td>");
-      //
-      //     if(data[i].status == "Confirmado"){
-      //       tableDin = tableDin.concat("<td class=\"text-center\"> <div><span class=\"badge badge-success\">Confirmado</span>\n </div></td>");
-      //     } else if(data[i].status == "No confirmado"){
-      //       tableDin = tableDin.concat("<td class=\"text-center\"> <div><span class=\"badge badge-warning\">No Confirmado</span>\n </div></td>");
-      //     } else {
-      //       tableDin = tableDin.concat("<td class=\"text-center\"> <div><span class=\"badge badge-danger\">Bloqueado</span>\n </div></td>");
-      //     }
-      //
-      //     console.log(data[i]);
-      //   }
-      //   console.log(tableDin);
-      //   $("#tabla_de_choferes").html(tableDin);
-      //   alert( "Load was performed." );
-      //   jQuery(document).ready(function($) {
-      //     $(".clickable-row").click(function() {
-      //       window.location = $(this).data("href");
-      //     });
-      //   });
-      //
-      // });
+        // var marker = new google.maps.Marker({position: uluru, map: map, icon:"https://github.com/tdp2-2019/backoffice/blob/c4d84d2cd8c6a2af042ad72e1506d69c36122a97/taxi.png?raw=true"});
+
+        $.get( "https://correapp-api.herokuapp.com/trips/"+ id , function( data ) {
+          console.log(data);
+          console.log(data);
+
+
+          var tableDin = "";
+          jQuery.ajaxSetup({async:false});
+
+
+          const position = data.currentposition;
+          const source = data.source;
+          const dest = data.destination;
+
+
+            console.log(position.lat);
+            console.log(position.long);
+
+
+          var markerSource = new google.maps.Marker({position: {lat: parseFloat(source.lat), lng: parseFloat(source.long)}, map: map, icon:"https://github.com/tdp2-2019/backoffice/blob/f4297b31e23e348ba0171d7b5c938da679f9b9d9/townhouse.png?raw=true"});
+          var markerDestination = new google.maps.Marker({position: {lat: parseFloat(dest.lat), lng: parseFloat(dest.long)}, map: map, icon:"https://github.com/tdp2-2019/backoffice/blob/f4297b31e23e348ba0171d7b5c938da679f9b9d9/direction_down.png?raw=true"});
+          var markerI = new google.maps.Marker({position: {lat: parseFloat(position.lat), lng: parseFloat(position.long)}, map: map, icon:"https://github.com/tdp2-2019/backoffice/blob/c4d84d2cd8c6a2af042ad72e1506d69c36122a97/taxi.png?raw=true"});
+
+
+
+
+          const driver_id = data.driver_id;
+            console.log(driver_id);
+            $.get("https://correapp-api.herokuapp.com/drivers/" + driver_id, function (driver) {
+              console.log(driver);
+
+              tableDin = tableDin.concat("<tr id='" + data.id +"'><a href=\"driver.html\"> <td class=\"text-center\"> <div class=\"avatar\"> <img class=\"img-avatar\" src=\"" +driver.photo_url + "\"></div> </td>");
+              tableDin = tableDin.concat("<td> <div>"+ driver.name + " " + driver.lastname +"</div> </td> ");
+              tableDin = tableDin.concat("<td> <div>"+ data.client + "</div> </td> ");
+              tableDin = tableDin.concat("<td> <div>"+ " Origen " + "</div> </td> ");
+              tableDin = tableDin.concat("<td> <div>"+ " Destino " + "</div> </td> ");
+              tableDin = tableDin.concat("<td> <div class='text-info'> $"+  Math.round(data.price * 100) / 100 + "</div> </td> ");
+              tableDin = tableDin.concat("<td> <div>"+  Math.round(data.duration / 60) + " minutos </div> </td> </tr>");
+
+
+            });
+
+          function random_no(){
+            var ran=Math.random();
+            $.get( "https://correapp-api.herokuapp.com/trips/"+ id , function( data ) {
+              console.log(data);
+              console.log(markerI);
+              markerI.setMap(null);
+              markerI = new google.maps.Marker({position: {lat: parseFloat(data.currentposition.lat), lng: parseFloat(data.currentposition.long)}, map: map, icon:"https://github.com/tdp2-2019/backoffice/blob/c4d84d2cd8c6a2af042ad72e1506d69c36122a97/taxi.png?raw=true"});
+            });
+            console.log(ran);
+          }
+
+          window.setInterval(function(){
+            /// call your function here
+
+
+
+            random_no();
+          }, 6000);  // Change Interval here to test. For eg: 5000 for 5 sec
+
+
+
+          jQuery.ajaxSetup({async:true});
+
+          $("#tb_viajes").html(tableDin);
+          jQuery(document).ready(function($) {
+            $(".clickable-row").click(function() {
+              window.location = $(this).data("href");
+            });
+          });
+
+          $("#card_viaje_id").html("Viaje #" + id );
+
+          $("#tb_viajes").empty().append(tableDin);
+
+
+        });
+
+      }
     </script>
 
     <script>
@@ -159,32 +182,7 @@
       <main class="main">
         <div class="container-fluid">
           <div class="animated fadeIn">
-            <script>
-              function initMap() {
-                if (navigator.geolocation) {
-                  console.log(navigator);
-                  console.log(navigator.geolocation);
 
-                  navigator.geolocation.getCurrentPosition(mip);
-                }
-              }
-
-
-              console.log("asdasdadadas");
-              // Initialize and add the map
-              function mip(loc) {
-
-                console.log(loc);
-                console.log("asdasdadadas2");
-                // The location of Uluru
-                var uluru = {lat: -34.5688743, lng: -58.45388799999999};
-                // The map, centered at Uluru
-                var map = new google.maps.Map(
-                  document.getElementById('map'), {zoom: 12, center: uluru});
-                // The marker, positioned at Uluru
-                var marker = new google.maps.Marker({position: uluru, map: map});
-              }
-            </script>
             <!--Load the API from the specified URL
             * The async attribute allows the browser to render the page while the API loads
             * The key parameter will contain your own API key (which is not needed for this tutorial)
@@ -197,7 +195,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="card">
-                <div class="card-header">Viaje #{id}</div>
+                <div id="card_viaje_id" class="card-header">Viaje </div>
                 <div class="card-body">
                   <br>
                   <table class="table table-responsive-sm table-hover table-outline mb-0">
@@ -207,12 +205,14 @@
                         <i class="icon-people"></i>
                       </th>
                       <th>Chofer</th>
-                      <th class="text-center">Rating</th>
-                      <th>Cantidad de viajes</th>
-                      <th class="text-center">Status</th>
+                      <th>Cliente</th>
+                      <th>Origen</th>
+                      <th>Destino</th>
+                      <th>Precio</th>
+                      <th>Duracion</th>
                     </tr>
                     </thead>
-                    <tbody id="tabla_de_choferes">
+                    <tbody id="tb_viajes">
 
                     </tbody>
                   </table>
